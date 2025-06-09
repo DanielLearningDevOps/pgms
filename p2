@@ -1,0 +1,64 @@
+-> Installation of docker: 
+Install Docker from Docker.com
+
+-> Docker basic commands
+docker --version: Check the Docker version installed on your system.  
+docker info: Display system-wide information about Docker.
+docker ps: List currently running containers.  
+docker ps -a: List all containers, including stopped ones.
+docker images: List all Docker images on the system.  
+
+-> Creation of Docker Container with own image:
+Create the following Dockerfile and a file called index.html in a directory:
+Docker file:
+# Use a lightweight web server image as the base
+FROM nginx:alpine
+
+# Copy the HTML file into the NGINX web server directory
+COPY index.html /usr/share/nginx/html/index.html
+
+# Expose the port on which the web server will run
+EXPOSE 80
+
+
+HTML File:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+</html>
+
+
+Run the following Command: 
+docker build -t hello-world-image .
+docker run -d -p 8081:80 hello-world-image
+
+Then go to http://localhost:8081/ to see the file
+image.png
+
+Pushing it to docker hub:
+Created docker account with Username and ID as 1by22is045
+Created repository with name 1by22is045
+docker tag hello-world-image:latest 1by22is045/1by22is045:1.0
+image.png
+
+-> Run OS image as a container:
+Run the following commands:
+docker pull ubuntu
+docker run -it ubuntu (Allows us to interact with the container OS from the terminal)
+
+image.png
+
+
+-> Pull containerized application from Docker Hub and Run it as a container:
+docker pull nginx
+docker run -d -p 8082:80 --name nginx-container nginx
+
+image.png
+
