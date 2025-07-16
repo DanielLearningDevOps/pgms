@@ -1,0 +1,32 @@
+pipeline {
+agent any
+stages {
+stage('Prepare Workspace') {
+steps {
+// Copy local code using Windows command
+bat 'xcopy /s /e /y "C:\\Users\\Admin\\Desktop\\helloworld.py" .'
+}
+}
+stage('Code Analysis') {
+
+DevOps - Program 4 30
+
+environment {
+scannerHome = tool 'sonar'
+}
+steps {
+script {
+withSonarQubeEnv('sonar') {
+bat """
+${scannerHome}\\bin\\sonar-scanner.bat ^
+-Dsonar.projectKey=your_project_key ^
+-Dsonar.projectName=your_project_name ^
+-Dsonar.projectVersion=1.0 ^
+-Dsonar.sources=.
+"""
+}
+}
+}
+}
+}
+}
